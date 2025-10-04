@@ -13,18 +13,23 @@
         <div class="container">
             <div class="header-top">
                 <div class="logo">
-                    <h1 class="logo-text">CleanBooks</h1>
-                    <span class="logo-subtitle">PRO</span>
+                    <a href="index.html" class="logo-link" title="Go to Homepage">
+                        <h1 class="logo-text">CleanBooks</h1>
+                        <span class="logo-subtitle">PRO</span>
+                    </a>
                 </div>
                 <div class="contact-info">
-                    <span>hello@cleanbookspro.com</span>
+                    <span>cleanbookspro@gmail.com</span>
                 </div>
             </div>
             
+            <button class="mobile-menu-button" aria-label="Toggle menu">
+                <span class="menu-icon"></span>
+            </button>
             <nav class="navigation">
                 <ul class="nav-menu">
                     <li><a href="smart-virtual-accounting.html">Smart & Virtual Accounting</a></li>
-                    <li><a href="startup.html">Are You A Start-Up?</a></li>
+                    <li><a href="startup.html">Start-up Management</a></li>
                     <li class="dropdown">
                         <span class="dropdown-trigger">Services <span class="dropdown-arrow">▼</span></span>
                         <ul class="dropdown-menu">
@@ -32,7 +37,6 @@
                             <li><a href="integrations.html">Accounting Integrations</a></li>
                         </ul>
                     </li>
-                    <li><a href="blog.html">Blog</a></li>
                     <li><a href="testimonials.html">Client Stories</a></li>
                     <li><a href="pricing.html">Pricing</a></li>
                 </ul>
@@ -45,21 +49,17 @@
 
     <!-- Hero Section -->
     <section class="hero-section">
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title">CLEANBOOKS BUSINESS SERVICES</h1>
             <p class="hero-subtitle">Your Best Accounting Partner – We believe in Productivity.</p>
-            <a href="#why-us" class="hero-btn">Read More</a>
+            <a href="#learn-more" class="hero-btn">Read More</a>
         </div>
     </section>
 
     <!-- Main Content -->
     <main class="main-content">
         <div class="container">
-            <!-- Why US Section -->
-            <section id="why-us" class="section">
-                <h2>Why US</h2>
-            </section>
-
             <!-- The Metamorphosis of Accounting Section -->
             <section class="section">
                 <h2>The Metamorphosis of Accounting</h2>
@@ -158,7 +158,6 @@
                             <li><a href="#">Smart & Virtual Accounting</a></li>
                             <li><a href="#">Are You A Start-Up?</a></li>
                             <li><a href="#">Pricing</a></li>
-                            <li><a href="#">Blog</a></li>
                             <li><a href="#">Contact Us</a></li>
                         </ul>
                     </div>
@@ -174,9 +173,7 @@
                     <div class="footer-column">
                         <h4>Contact Us</h4>
                         <ul>
-                            <li>kinnari@assuredservices.in</li>
-                            <li>+91 9016042309</li>
-                            <li>assuredservices.28</li>
+                            <li>cleanbookspro@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -185,7 +182,7 @@
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
                     <div class="footer-brand">
-                        <h3>Assured Services</h3>
+                        <h3>CleanBooks Pro</h3>
                         <p>Your Best Accounting Partner – We believe in Productivity.</p>
                     </div>
                     
@@ -196,7 +193,6 @@
                                 <li><a href="#">Smart & Virtual Accounting</a></li>
                                 <li><a href="#">Are You A Start-Up?</a></li>
                                 <li><a href="#">Pricing</a></li>
-                                <li><a href="#">Blog</a></li>
                                 <li><a href="#">Contact Us</a></li>
                             </ul>
                         </div>
@@ -204,40 +200,92 @@
                         <div class="footer-bottom-column">
                             <h4>Contact Us</h4>
                             <ul>
-                                <li>hello@assuredservices.in</li>
-                                <li>assuredservices.28</li>
+                                <li>cleanbookspro@gmail.com</li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 
-                <div class="newsletter">
-                    <h4>Subscribe our NewsLetter</h4>
-                </div>
-                
-                <div class="copyright">
-                    <p>© Copyright 2024 AssuredServices. All Right Reserved.</p>
-                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Dropdown functionality
+        // Mobile menu functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const dropdown = document.querySelector('.dropdown');
-            const dropdownMenu = document.querySelector('.dropdown-menu');
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const navigation = document.querySelector('.navigation');
+            const dropdowns = document.querySelectorAll('.dropdown');
             
-            dropdown.addEventListener('mouseenter', function() {
-                dropdownMenu.style.opacity = '1';
-                dropdownMenu.style.visibility = 'visible';
-                dropdownMenu.style.transform = 'translateY(0)';
+            // Mobile menu toggle with animation
+            mobileMenuButton.addEventListener('click', function() {
+                this.classList.toggle('active');
+                if (navigation.classList.contains('active')) {
+                    navigation.style.opacity = '0';
+                    setTimeout(() => {
+                        navigation.classList.remove('active');
+                        navigation.style.opacity = '';
+                    }, 300);
+                } else {
+                    navigation.classList.add('active');
+                }
             });
-            
-            dropdown.addEventListener('mouseleave', function() {
-                dropdownMenu.style.opacity = '0';
-                dropdownMenu.style.visibility = 'hidden';
-                dropdownMenu.style.transform = 'translateY(-10px)';
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!navigation.contains(e.target) && !mobileMenuButton.contains(e.target) && navigation.classList.contains('active')) {
+                    mobileMenuButton.classList.remove('active');
+                    navigation.classList.remove('active');
+                }
+            });
+
+            // Handle dropdowns
+            function setupDropdown(dropdown) {
+                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                const dropdownTrigger = dropdown.querySelector('.dropdown-trigger');
+
+                if (window.innerWidth <= 768) {
+                    dropdownTrigger.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        dropdowns.forEach(d => {
+                            if (d !== dropdown && d.classList.contains('active')) {
+                                d.classList.remove('active');
+                            }
+                        });
+                        
+                        dropdown.classList.toggle('active');
+                    });
+                } else {
+                    dropdown.addEventListener('mouseenter', function() {
+                        dropdownMenu.style.opacity = '1';
+                        dropdownMenu.style.visibility = 'visible';
+                        dropdownMenu.style.transform = 'translateY(0)';
+                    });
+                    
+                    dropdown.addEventListener('mouseleave', function() {
+                        dropdownMenu.style.opacity = '0';
+                        dropdownMenu.style.visibility = 'hidden';
+                        dropdownMenu.style.transform = 'translateY(-10px)';
+                    });
+                }
+            }
+
+            // Setup all dropdowns
+            dropdowns.forEach(setupDropdown);
+
+            // Handle window resize
+            let timeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    if (window.innerWidth > 768) {
+                        mobileMenuButton.classList.remove('active');
+                        navigation.classList.remove('active');
+                        dropdowns.forEach(d => d.classList.remove('active'));
+                    }
+                }, 100);
             });
         });
 
